@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.lepescin.articlesaboutproducts.model.Product;
@@ -65,4 +66,40 @@ public class ProductController {
         log.info("get product {} with articles", id);
         return productService.get(id);
     }
+
+    @GetMapping("/sort")
+    public List<Product> getAllSortedProducts(
+            @RequestParam(value = "param", required = false) String param) {
+        log.info("get all products sorted by {}", param);
+        List<Product> products = null;
+        switch (param.toLowerCase()) {
+            case "name":
+                products = productService.getAllSortedByNameAsc();
+                break;
+            case "price":
+                products = productService.getAllSortedByPriceAsc();
+                break;
+            case "quantityofarticles":
+                products = productService.getAllSortedByQuantityOfArticlesAsc();
+                break;
+        }
+        return products;
+    }
+
+    @GetMapping("/filterbyprice")
+    public List<Product> getAllProductsFilteredByPrice(
+            @RequestParam @Nullable Integer fromPrice,
+            @RequestParam @Nullable Integer toPrice) {
+        log.info("get all products filtered by price");
+        return productService.getAllFilteredByPrice(fromPrice, toPrice);
+    }
+
+    @GetMapping("/filterbyquantityofarticles")
+    public List<Product> getAllProductsFilteredByQuantityOfArticles(
+            @RequestParam @Nullable Integer fromQty,
+            @RequestParam @Nullable Integer toQty) {
+        log.info("get all products filtered by quantity of articles");
+        return productService.getAllFilteredByQuantityOfArticles(fromQty, toQty);
+    }
+
 }

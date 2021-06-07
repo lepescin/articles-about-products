@@ -13,6 +13,7 @@ import ru.lepescin.articlesaboutproducts.to.ArticleTo;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static ru.lepescin.articlesaboutproducts.util.ValidationUtil.assureIdConsistent;
@@ -63,5 +64,29 @@ public class ArticleController {
     public Article getArticle(@PathVariable int productId, @PathVariable int articleId) {
         log.info("get article {} about product {}", articleId, productId);
         return articleService.get(articleId, productId);
+    }
+
+    @GetMapping("/articlesort")
+    public List<Article> getAllSortedArticles(
+            @RequestParam(value = "param", required = false) String param) {
+        log.info("get all articles sorted by {}", param);
+        List<Article> articles = null;
+        switch (param.toLowerCase()) {
+            case "title":
+                articles = articleService.getAllSortedByArticleTitleAsc();
+                break;
+            case "datetime":
+                articles = articleService.getAllSortedByDateTimeAsc();
+                break;
+        }
+        return articles;
+    }
+
+    @GetMapping("/articlefilter")
+    public List<Article> getAllArticlesFilteredByDateTime(
+            @RequestParam(value = "fromDateTime") LocalDateTime fromDateTime,
+            @RequestParam(value = "toDate") LocalDateTime toDateTime) {
+        log.info("get all articles filtered by datetime");
+        return articleService.getAllFilteredByDateTime(fromDateTime, toDateTime);
     }
 }
