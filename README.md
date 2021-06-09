@@ -39,4 +39,4 @@ curl -s http://localhost:8080/products/articlesort?param=title
 #### sort by datetime
 curl -s http://localhost:8080/products/articlesort?param=datetime
 #### filter by datetime
-curl -X GET "http://localhost:8080/products/articlefilter?fromDateTime=2021-06-07 00:00&toDateTime=2021-06-07 23:59" -H "accept: application/json"
+curl -X GET "http://localhost:8080/products/articlefilter?fromDateTime=2021-06-08T00:00:00&toDateTime=2021-06-08T23:59:00" -H "accept: application/json"

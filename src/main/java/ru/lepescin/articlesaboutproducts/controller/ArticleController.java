@@ -2,6 +2,7 @@ package ru.lepescin.articlesaboutproducts.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -84,8 +85,10 @@ public class ArticleController {
 
     @GetMapping("/articlefilter")
     public List<Article> getAllArticlesFilteredByDateTime(
-            @RequestParam(value = "fromDateTime") LocalDateTime fromDateTime,
-            @RequestParam(value = "toDate") LocalDateTime toDateTime) {
+            @RequestParam(value = "fromDateTime")
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime fromDateTime,
+            @RequestParam(value = "toDateTime")
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime toDateTime) {
         log.info("get all articles filtered by datetime");
         return articleService.getAllFilteredByDateTime(fromDateTime, toDateTime);
     }

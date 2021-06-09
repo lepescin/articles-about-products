@@ -30,6 +30,7 @@ public class Article extends AbstractBaseEntity {
 
     @Column(name = "created", nullable = false)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    //@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     private LocalDateTime created;

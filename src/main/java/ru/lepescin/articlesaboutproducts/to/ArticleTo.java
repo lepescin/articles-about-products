@@ -1,7 +1,9 @@
 package ru.lepescin.articlesaboutproducts.to;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @NoArgsConstructor
@@ -15,5 +17,6 @@ public class ArticleTo extends BaseTo {
 
     private String content;
 
+    @ApiModelProperty(hidden = true)
     private LocalDateTime created;
 }
