@@ -26,6 +26,6 @@ public interface CrudArticleRepository extends JpaRepository<Article, Integer> {
     @Query("SELECT a FROM Article a ORDER BY a.created")
     List<Article> getAllSortedByDateTimeAsc();
 
-    @Query("SELECT a FROM Article a WHERE a.created >=: fromDatetime AND a.created <=: toDateTime ORDER BY a.created")
+    @Query("SELECT a FROM Article a WHERE a.created >= :fromDatetime AND a.created <= :toDateTime ORDER BY a.created")
     List<Article> getAllFilteredByDateTime(@Param("fromDatetime") LocalDateTime fromDatetime, @Param("toDateTime") LocalDateTime toDateTime);
 }
